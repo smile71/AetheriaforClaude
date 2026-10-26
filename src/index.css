@@ -1,0 +1,244 @@
+@import "tailwindcss";
+
+:root {
+    --accent: 139 92 246;
+    --glass-alpha: 0.78;
+    --blur: 24px;
+}
+
+html, body, #root {
+    height: 100%;
+    background: transparent;
+    overflow: hidden;
+}
+
+body {
+    color: #fff;
+    font-family: Inter, system-ui, sans-serif;
+    user-select: none;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.15) transparent;
+}
+
+.panel {
+    background: rgb(16 16 24 / var(--glass-alpha));
+    backdrop-filter: blur(var(--blur)) saturate(150%);
+    border: 1px solid rgb(255 255 255 / 0.07);
+    border-radius: 18px;
+}
+
+.chip {
+    background: rgb(255 255 255 / 0.06);
+    border-radius: 12px;
+    transition: background .2s, transform .15s;
+}
+
+    .chip:hover {
+        background: rgb(255 255 255 / 0.12);
+    }
+
+.accent-text {
+    color: rgb(var(--accent));
+}
+
+.accent-bg {
+    background: rgb(var(--accent));
+    color: #000;
+}
+
+input[type=range] {
+    accent-color: rgb(var(--accent));
+}
+
+button {
+    transition: transform .15s ease, background .2s, opacity .2s;
+}
+
+    button:active {
+        transform: scale(.96);
+    }
+
+@keyframes eq {
+    0%,100% {
+        height: 20%
+    }
+
+    50% {
+        height: 100%
+    }
+}
+
+.eq-bar {
+    width: 3px;
+    height: 20%;
+    background: rgb(var(--accent));
+    border-radius: 2px;
+    animation: eq 0.9s ease-in-out infinite;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.rise {
+    animation: rise .55s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes drift1 {
+    0%,100% {
+        transform: translate(0,0) scale(1);
+    }
+
+    50% {
+        transform: translate(9%,7%) scale(1.18);
+    }
+}
+
+@keyframes drift2 {
+    0%,100% {
+        transform: translate(0,0) scale(1.1);
+    }
+
+    50% {
+        transform: translate(-8%,-9%) scale(.95);
+    }
+}
+
+/* Ice melting (IceMelting.tsx) */
+.ice-face {
+    backface-visibility: visible;
+    backdrop-filter: blur(2px);
+}
+
+.ice-shine {
+    background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.35) 45%, transparent 60%);
+    background-size: 250% 100%;
+    animation: ice-shine 4.5s ease-in-out infinite;
+}
+
+@keyframes ice-shine {
+    0%,100% {
+        background-position: 120% 0;
+    }
+
+    50% {
+        background-position: -20% 0;
+    }
+}
+
+.ice-wobble {
+    animation: ice-wobble 3s ease-in-out infinite;
+}
+
+@keyframes ice-wobble {
+    0%,100% {
+        transform: scale3d(1,1,1);
+    }
+
+    50% {
+        transform: scale3d(1.03,.97,1.03);
+    }
+}
+
+.ice-puddle {
+    background: radial-gradient(ellipse at center, rgb(140 200 255 / 0.55), rgb(90 168 255 / 0.15) 60%, transparent 75%);
+    filter: blur(1px);
+}
+
+.ice-drip {
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: radial-gradient(circle at 35% 30%, #fff, #8fd0ff 60%, #3a8bff);
+    opacity: 0;
+    animation: ice-drip 2.6s ease-in infinite;
+}
+
+@keyframes ice-drip {
+    0% {
+        transform: translateY(-14px) scale(.4);
+        opacity: 0;
+    }
+
+    25% {
+        transform: translateY(-10px) scale(1);
+        opacity: 1;
+    }
+
+    85% {
+        transform: translateY(6px) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(8px) scale(1.6, .3);
+        opacity: 0;
+    }
+}
+
+.ice-mini-drip {
+    animation: ice-mini-drip 2.2s ease-in infinite;
+}
+
+@keyframes ice-mini-drip {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    80% {
+        transform: translateY(2.5px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(3px);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ice-shine, .ice-wobble, .ice-drip, .ice-mini-drip {
+        animation: none;
+    }
+}
+
+html.light body {
+    color: #14141c;
+}
+
+html.light .panel {
+    background: rgb(255 255 255 / var(--glass-alpha));
+    border-color: rgb(0 0 0 / 0.08);
+}
+
+html.light .chip {
+    background: rgb(0 0 0 / 0.05);
+}
+
+    html.light .chip:hover {
+        background: rgb(0 0 0 / 0.1);
+    }
+
+html.light .text-white\/40, html.light .text-white\/50,
+html.light .text-white\/60, html.light .text-white\/70 {
+    color: rgb(0 0 0 / 0.55);
+}
+
+html.light .hover\:bg-white\/10:hover {
+    background: rgb(0 0 0 / 0.08);
+}
+
+html.light .bg-white\/15 {
+    background: rgb(0 0 0 / 0.1);
+    color: #000;
+}
